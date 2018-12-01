@@ -28,15 +28,15 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget _buildList() {
     return new ListView.builder(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(16.0),
         itemBuilder: (context, index) {
           if (index >= itemList.length) {
             return null;
           }
-          return new ListTile(
-            title: new Text(
+          return ListTile(
+            title: Text(
               "${index + 1}. ${itemList[index]}",
-              style: const TextStyle(fontSize: 18.0),
+              style: TextStyle(fontSize: 18.0),
             ),
             onTap: () {
               _onItemClick(context, index);
@@ -46,19 +46,25 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   _onItemClick(BuildContext context, int index) {
-//    Scaffold.of(context).showSnackBar(new SnackBar(
-//        content: new Text(itemList[index]),
-//        duration: Duration(milliseconds: 1000)));
-    if (index == 0) {
-      Navigator.of(context).push(
-        new MaterialPageRoute(
-          builder: (context) {
-            return new Scaffold(
-              body: EnglishWordsList(title: itemList[index]),
-            );
-          },
-        ),
-      );
+    switch (index) {
+      case 0:
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) {
+              return Scaffold(
+                body: EnglishWordsList(title: itemList[index]),
+              );
+            },
+          ),
+        );
+        break;
+      default:
+        Scaffold.of(context).showSnackBar(new SnackBar(
+          content: new Text(itemList[index] + "\n\n还没做"),
+//            duration: Duration(milliseconds: 4000)),
+          action: new SnackBarAction(label: '哦', onPressed: () {}),
+        ));
+        break;
     }
   }
 }
