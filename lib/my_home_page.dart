@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:my_flutter_demo/english_words_list/english_words_list.dart';
 import 'package:my_flutter_demo/my_story_game/my_story_game.dart';
 
@@ -21,14 +22,31 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: _buildList(),
-      ),
-    );
+    return WillPopScope(
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text(widget.title),
+          ),
+          body: Center(
+            child: _buildList(),
+          ),
+        ),
+        onWillPop: () {
+          showDialog<void>(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                    content: new Text('退出App？'),
+                    actions: <Widget>[
+                      new FlatButton(
+                          onPressed: () {
+                            SystemNavigator.pop();
+                          },
+                          child: new Text('确定'))
+                    ]);
+              });
+          return Future.value(false);
+        });
   }
 
   Widget _buildList() {

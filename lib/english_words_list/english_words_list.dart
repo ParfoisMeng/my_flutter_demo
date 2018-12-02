@@ -21,7 +21,7 @@ class _EnglishWordsListState extends State<EnglishWordsList> {
 
   @override
   Widget build(BuildContext context) {
-    return new WillPopScope(
+    return WillPopScope(
       child: Scaffold(
         appBar: AppBar(
           title: Text(widget.title),
@@ -40,7 +40,7 @@ class _EnglishWordsListState extends State<EnglishWordsList> {
       onWillPop: () {
         closeSQLite();
         Navigator.pop(context);
-        return new Future.value(false);
+        return Future.value(false);
       },
     );
   }
