@@ -21,20 +21,27 @@ class _EnglishWordsListState extends State<EnglishWordsList> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-        actions: <Widget>[
-          IconButton(
-              icon: Icon(Icons.list),
-              onPressed: () {
-                _pushSavedFavoriteWords(context);
-              })
-        ],
+    return new WillPopScope(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(widget.title),
+          actions: <Widget>[
+            IconButton(
+                icon: Icon(Icons.list),
+                onPressed: () {
+                  _pushSavedFavoriteWords(context);
+                })
+          ],
+        ),
+        body: Center(
+          child: _buildList(),
+        ),
       ),
-      body: Center(
-        child: _buildList(),
-      ),
+      onWillPop: () {
+        closeSQLite();
+        Navigator.pop(context);
+        return new Future.value(false);
+      },
     );
   }
 
