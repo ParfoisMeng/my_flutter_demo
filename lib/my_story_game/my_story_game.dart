@@ -1,23 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:my_flutter_demo/english_words_list/english_words_list.dart';
-import 'package:my_flutter_demo/my_story_game/my_story_game.dart';
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+class MyStoryGame extends StatefulWidget {
+  MyStoryGame({Key key, this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _MyStoryGameState createState() => _MyStoryGameState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  final itemList = <String>[
-    "English Words List",
-    "My Story Game",
-    "Other More ..."
-  ];
+class _MyStoryGameState extends State<MyStoryGame> {
+  final itemList = <String>["English Words List", "Other More ..."];
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   _onItemClick(BuildContext context, int index) {
     switch (index) {
-      case 0: // "English Words List"
+      case 0:
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) {
@@ -63,18 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         );
         break;
-      case 1: // "My Story Game"
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) {
-              return Scaffold(
-                body: MyStoryGame(title: itemList[index]),
-              );
-            },
-          ),
-        );
-        break;
-      default: // "Other More ..."
+      default:
         Scaffold.of(context).showSnackBar(SnackBar(
           content: Text(itemList[index] + "\n\n还没做"),
 //            duration: Duration(milliseconds: 4000)),
